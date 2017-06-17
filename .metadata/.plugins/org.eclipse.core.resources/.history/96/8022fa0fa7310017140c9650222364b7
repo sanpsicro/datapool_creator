@@ -1,0 +1,109 @@
+package project.excel;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.util.HashMap;
+import java.util.Iterator;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.commons.collections.map.MultiValueMap;
+
+
+
+public class Main {
+	
+	public static MultiValueMap  relX = new MultiValueMap();
+	public static HashMap<String,Integer>  index_column = new HashMap<String,Integer>();
+	
+	 
+	
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String out_file = "C:/Users/Usuario/Desktop/datapool_vacio.xlsx";
+		  relX.put( "ID Cliente","TXT_GETIDCLIENTE");
+		  relX.put( "Percentil","LBL_PERCENTIL");
+		  relX.put( "Segmento","LBL_SEGMENTO");
+		  relX.put( "ID Cliente","LBL_ID_CLIENTE");
+		  relX.put("Descripcion1","FCN_VALIDATEATTRIBUTE");
+		  relX.put("IdLinea","FCN_VALIDATEATTRIBUTE"); 
+		  relX.put("IdLinea","FCN_VALIDAWIDGET"); 
+		  relX.put("Periocidad","FCN_VALIDAWIDGET");  
+		  relX.put("IdLinea","CLICK_VOID_OBJECT"); 
+		  relX.put("text:ingreso de operaciones","LBL_INGRESO_OPERACIONES"); 
+		  relX.put("text:ingreso de operaciones","LBL_INGRESOOPERACIONES"); 
+		  relX.put("Avaluo","TXT_AVALUO"); 
+		  relX.put("ID Cliente","TXT_CLIENTE"); 
+		  relX.put("ID Cliente","LBL_NOCLIENTE"); 
+		  relX.put("IdLinea","ID_LINEA_"); 
+		  relX.put("Avaluo","TXT_CALCULARGRAMOSNETOS_VOID"); 
+		  relX.put("Periocidad","CBO_PAGOS"); 
+		  relX.put("Descripcion1","CTNDR_LINEA_EMPENIO"); 
+		  relX.put("Importe Préstamo","TXT_PRESTAMO"); 
+		  relX.put("TipoTasa","TXT_TASA_TIPO"); 
+		  relX.put("ValorTasa","TXT_TASA"); 
+		  relX.put("PlazoMax","TXT_PALZOS_D"); 
+		  relX.put("Forma de pago","CBO_FORMA_PAGO"); 
+		  relX.put("text:Detalle de Bienes","LBL_DETALLE_BIENES"); 
+		  relX.put("Descripcion","CBO_SUB_RUBRO_BIENES"); 
+		  relX.put("Consecutivo","LBL_COLUMNA_NRO"); 
+		  relX.put("Avaluo","LBL_COLUMNA_AVALUO"); 
+		  relX.put("Alta Bien","LBL_ALTA_BIEN"); 
+		  relX.put("text:GRAMOS","TXT_K1_TOTAL_GRAMOS"); 
+		  relX.put("text:24","TXT_K1_TIPO_K"); 
+		  relX.put("text:2","TXT_K1_CLASIF"); 
+		  relX.put("text:Cotizador","LNK_COTIZADOR");  
+		  relX.put("text:1","CBO_PRODUCTO_COTIZADOR"); 
+		  relX.put("idRubro","TXT_RUBRO_COTIZADOR"); 
+		  relX.put("Avaluo","TXT_AVALUO_COTIZADOR"); 
+		  relX.put("text:1","TXT_CANTIDAD_PIEZAS"); 
+		  relX.put("text:0","TXT_CANT_ETIQUETAS_"); 
+		  relX.put("text:Rubro : Alhajas - SubRubro : Alhajas","LBL_RUBRO"); 
+		  relX.put("text:Bienvenido","LBL_INFORMACION_OPERACION"); 
+		  relX.put("Descripcion1","TXT_LINEA"); 
+		  relX.put("text:02/10/1980","TXT_FECHA_NACIMIENTO"); 
+		  relX.put("Periocidad","CLICK_VOID_OBJECT");
+		  relX.put("Avaluo","TXT_CALCULARGRAMOSNETOS_VOID");
+		  relX.put("text:Alta Bien","LBL_ALTA_BIEN");
+		  
+		  
+		  
+		  try (FileInputStream file = new FileInputStream(new File(out_file))) {
+		    	XSSFWorkbook workbook = new XSSFWorkbook (out_file); 
+		    	XSSFSheet sheet = workbook.getSheetAt(0);
+		    	 Iterator<Row> rowIterator = sheet.iterator();
+			        for (Row row : sheet) {
+			            Iterator<Cell> cellIterator = row.cellIterator();
+			            if(row.getRowNum() == 0){
+			            for (Cell cell : row) {
+			            	
+			            	try {
+							String	a=cell.getStringCellValue();
+							int b = cell.getColumnIndex();
+							System.out.println(a);
+							index_column.put(a, b);
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+							double	a =cell.getNumericCellValue();
+							System.out.println(a);
+							}   
+			            }
+							
+			            }
+			        }
+		  }catch(Exception e){
+			  
+			  
+		  }
+		  
+		  
+		readingExcel a = new readingExcel();
+		a.readingMatrix("C:/Users/Usuario/Desktop/valores_alhajas.xlsx","C:/Users/Usuario/Desktop/datapool_vacio.xlsx");
+		
+	}
+
+}

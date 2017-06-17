@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="java.io.FileInputStream"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="java.util.Iterator"/>
+<fullyQualifiedTypeName name="project.excel.readingExcel"/>
+<fullyQualifiedTypeName name="org.apache.poi.xssf.usermodel.XSSFWorkbook"/>
+<fullyQualifiedTypeName name="org.apache.poi.xssf.usermodel.XSSFSheet"/>
+<fullyQualifiedTypeName name="org.apache.poi.ss.usermodel.Header"/>
+<fullyQualifiedTypeName name="org.apache.poi.ss.util.CellReference"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="javax.sql.RowSetWriter"/>
+<fullyQualifiedTypeName name="org.apache.poi.xssf.usermodel.XSSFCell"/>
+<fullyQualifiedTypeName name="java.util.Set"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="org.apache.poi.ss.usermodel.DataFormatter"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="project.excel.Autos_prendario"/>
+<fullyQualifiedTypeName name="project.excel.AutosRodando_prendario"/>
+<fullyQualifiedTypeName name="project.excel.Motos_prendario"/>
+<fullyQualifiedTypeName name="project.excel.Relojes_prendario"/>
+<fullyQualifiedTypeName name="project.excel.Plata_prendario"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="project.excel.file_writer"/>
+<fullyQualifiedTypeName name="java.util.LinkedHashSet"/>
+<fullyQualifiedTypeName name="org.openxmlformats.schemas.spreadsheetml.x2006.main.CTAutoFilter"/>
+<fullyQualifiedTypeName name="project.excel.Main"/>
+<fullyQualifiedTypeName name="org.openxmlformats.schemas.spreadsheetml.x2006.main.CTCustomFilters"/>
+<fullyQualifiedTypeName name="org.openxmlformats.schemas.spreadsheetml.x2006.main.CTCustomFilter"/>
+<fullyQualifiedTypeName name="org.openxmlformats.schemas.spreadsheetml.x2006.main.CTFilterColumn"/>
+<fullyQualifiedTypeName name="org.apache.poi.xssf.usermodel.XSSFRow"/>
+<fullyQualifiedTypeName name="org.apache.poi.ss.usermodel.Cell"/>
+<fullyQualifiedTypeName name="org.openxmlformats.schemas.spreadsheetml.x2006.main.CTFilter"/>
+<fullyQualifiedTypeName name="org.apache.poi.hssf.util.CellRangeAddress"/>
+<fullyQualifiedTypeName name="org.apache.poi.ss.util.CellRangeAddress"/>
+<fullyQualifiedTypeName name="java.io.FileOutputStream"/>
+<fullyQualifiedTypeName name="Excell_filter.filter_descripcion1"/>
+</qualifiedTypeNameHistroy>

@@ -1,0 +1,16 @@
+package project.excel;
+
+import org.apache.commons.collections.map.MultiValueMap;
+
+
+
+public class Autos_prendario  {
+ 
+	public static MultiValueMap  relX = new MultiValueMap();
+	
+	
+	
+
+	
+	
+}

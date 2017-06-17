@@ -1,0 +1,237 @@
+package project.excel;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.sql.RowSetWriter;
+
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Header;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.util.CellReference;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFComment;
+import org.apache.poi.xssf.usermodel.XSSFRichTextString;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import project.excel.Main;
+
+public class readingExcel{
+	
+	
+	
+	
+public static void readingMatrix(String fileName, String filename_B) {
+	    try (FileInputStream file = new FileInputStream(new File(fileName))) {
+	    	
+	    	XSSFWorkbook workbook = new XSSFWorkbook (file); 
+	    	XSSFSheet sheet = workbook.getSheetAt(0);
+	    	
+	    	FileInputStream file_B = new FileInputStream(new File(filename_B));
+	    	XSSFWorkbook workbook_B = new XSSFWorkbook(file_B);
+	    	XSSFSheet sheet_B = workbook_B.getSheetAt(0);
+	    	
+	    	
+	        Iterator<Row> rowIterator = sheet.rowIterator();
+	        
+	     
+	       
+	        for (Row row : sheet) {
+	             
+	        	if(row.getRowNum() == 0){
+	        		continue;
+	        	}
+	        	
+	        	Row row_w = sheet_B.createRow(row.getRowNum());
+	        	 try {
+						Main main = new Main();
+						List list;
+						 Set entrySet =  main.relX.entrySet();
+					        Iterator it = entrySet.iterator();
+					        System.out.println("  Object key  Object value");
+					        while (it.hasNext()) {
+					            Map.Entry mapEntry = (Map.Entry) it.next();
+					            list = (List) main.relX.get(mapEntry.getKey());
+					            for (int j = 0; j < list.size(); j++) {
+					                System.out.println("\t" + mapEntry.getKey() + "\t  " + list.get(j));
+									                if(mapEntry.getKey().toString().contains("text")){
+									                	String a = mapEntry.getKey().toString();
+									                	a = a.replace("text:", "").trim();
+									                	int index_i = main.index_column.get(list.get(j));
+									                	Cell cell_=row_w.createCell(index_i);
+									          
+									                	cell_.setCellValue(String.valueOf(a));
+									                	
+									                	file_B.close();
+													    FileOutputStream output_file =new FileOutputStream(new File(filename_B));  
+												  	    //write changes
+												  	   workbook_B.write(output_file);
+												  	   //close the stream
+												  	   output_file.close();
+									                }
+					            }
+					            
+					            
+					        }												
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+	         
+	        	
+					            for (Cell cell : row) {
+					            	
+					            	
+					            	
+					            	
+					            	try {
+									String	a_=cell.getStringCellValue();
+									System.out.println(a_);
+									String header = cell.getSheet().getRow(0).getCell(cell.getColumnIndex()).getRichStringCellValue().toString();
+													try {
+														Main main = new Main();
+														 ArrayList<Object> iden = (ArrayList<Object>) main.relX.get(header);
+														 
+													    	for (int i = 0; i < iden.size(); i++) {
+													    		int column_idx = main.index_column.get(iden.get(i));
+															    Cell cell_ = row_w.createCell(column_idx);
+															    a_ = constructor_(iden.get(i).toString(),a_,column_idx,row_w.getRowNum());
+															    cell_.setCellValue(String.valueOf(a_));
+															}
+													    	
+													    file_B.close();
+													    FileOutputStream output_file =new FileOutputStream(new File(filename_B));  
+												  	    //write changes
+												  	   workbook_B.write(output_file);
+												  	   //close the stream
+												  	   output_file.close();
+														
+													} catch (Exception e) {
+														continue;
+													}
+									} catch (Exception e) {
+										// TODO Auto-generated catch block
+									Double	b =cell.getNumericCellValue();
+									   int   a=   b.intValue();
+									System.out.println(a);
+									String header = cell.getSheet().getRow(0).getCell(cell.getColumnIndex()).getRichStringCellValue().toString();
+													try {
+														Main main = new Main();
+													    ArrayList<Object> iden = (ArrayList<Object>) main.relX.get(header);
+													 
+													    	for (int i = 0; i < iden.size(); i++) {
+													    		int column_idx = main.index_column.get(iden.get(i));
+															    Cell cell_ = row_w.createCell(column_idx);
+															    String x = constructor_(iden.get(i).toString(),String.valueOf(a),column_idx,row_w.getRowNum());
+															    cell_.setCellValue(x);
+															}
+													    file_B.close();
+													    FileOutputStream output_file =new FileOutputStream(new File(filename_B));  
+												  	    //write changes
+												  	   workbook_B.write(output_file);
+												  	   //close the stream
+												  	   output_file.close();
+														
+														
+													} catch (Exception e2) {
+														continue;
+													}
+									}
+					            	
+				
+					            	
+					            }
+	        
+	            }
+	        
+	        
+									            
+									             
+	  	   
+	    } catch (IOException ioException) {
+	        ioException.printStackTrace();
+	    }
+	    
+	    
+	}
+
+
+public static String constructor_(String columna_valores, String a, int column, int row ) throws IOException{
+	
+	
+	
+	
+	switch (columna_valores) {
+	case "CTNDR_LINEA_EMPENIO":
+		  a = "SISTEMA=PRENDARIO|PRODUCT_LINE="+a;
+		  
+		break;
+	case "FCN_VALIDATEATTRIBUTE":
+			String b = _readValue(column, row);
+			if(b == null){ b="";} 
+			if(a.contains("/")  ){
+				 b = b.replaceAll("[^0-9]+", "").trim();  
+				a = "LINEA="+a+"|ATTRIBUTE=href|VALOR="+b;}
+			else if(!b.contains("LINEA")) {a="LINEA="+b+"|ATTRIBUTE=href|VALOR="+a;}
+			else{a=  b+a;}	
+				break;
+	case "FCN_VALIDAWIDGET":
+		String c = _readValue(column, row);
+		   b = a.replaceAll("[^0-9]+", "").trim();
+		   if(!b.isEmpty()){
+			   a="ID_LINEA="+a+c; 
+			    }else{ 	
+			    a = c+a+"DEU|PLAZO="+a;
+			    }
+		break;
+	case "CLICK_VOID_OBJECT":
+		String d = _readValue(column, row);
+		 b = a.replaceAll("[^0-9]+", "").trim();
+		 if(!b.isEmpty()){
+			 a = "opener" + a + d;
+		 }else{
+			a = d +a + "DEU"; 
+		 }
+		
+		break;
+
+	default:
+		break;
+	}
+	return a;
+	
+	
+}
+
+
+public static String _readValue(int column, int row) throws IOException{
+	
+	FileInputStream file_B = new FileInputStream(new File("C:/Users/Usuario/Desktop/datapool_vacio.xlsx"));
+	XSSFWorkbook workbook_B = new XSSFWorkbook(file_B);
+	XSSFSheet sheet_B = workbook_B.getSheetAt(0);
+	
+	 DataFormatter formatter = new DataFormatter(); //creating formatter using the default locale
+	 Cell cell = sheet_B.getRow(row).getCell(column);
+	 String a = formatter.formatCellValue(cell);
+	 return a;
+	
+}
+
+    
+	
+}
+
+

@@ -1,0 +1,106 @@
+package project.excel;
+
+import org.apache.commons.collections.map.MultiValueMap;
+
+
+
+public class Autos_prendario  {
+ 
+	public static MultiValueMap  relX = new MultiValueMap();
+	
+	
+	
+	relX.put("text:BMW","CBO_MARCA_AUTO");
+	relX.put("text:Serie 2 Gran Tourer","TXT_MODELO_AUTO");
+	relX.put("text:2017","TXT_ANIO");
+	relX.put("text:Alemania","TXT_HECHO_EN");
+	relX.put("text:S123456789","TXT_SERIE");
+	relX.put("text:MT987456321","TXT_MOTOR");
+	relX.put("text:SEDAN","CBO_TIPO_AUTO");
+	relX.put("text:9874563210","TXT_T_CIRCULACION");
+	relX.put("text:NEGRO","TXT_COLOR");
+	relX.put("text:xyz-007","TXT_PLACAS");
+	relX.put("text:Pagadas","TXT_ULTIMAS_3_TENENCIAS_PAGADAS");
+	relX.put("text:10203040506070800","TXT_FACTURA");
+	relX.put("text:02/04/2016","TXT_FECHA_FACTURA");
+	relX.put("text:QA","TXT_FACTURO");
+	relX.put("text:Ninguna","TXT_OBSERVACIONES");
+	relX.put("text:En el lucero, Paseo de Montejo, Merida, Yuc 13/04/2017","TXT_LUGAR_FECHA_GENERACION");
+	relX.put("IdLinea","ID_LINEA");
+	relX.put("Descripcion1","LBL_XPATH_LINEA_SEG");
+	
+	relX.put( "ID Cliente","TXT_CLIENTE");
+	relX.put( "ID Cliente","LBL_NOCLIENTE");
+	relX.put( "Percentil","LBL_PERCENTIL");
+	relX.put( "Segmento","LBL_SEGMENTO");
+	relX.put( "ID Cliente","LBL_ID_CLIENTE");
+	relX.put("Descripcion1","FCN_VALIDATEATTRIBUTE");
+	relX.put("IdLinea","FCN_VALIDATEATTRIBUTE"); 
+	relX.put("IdLinea","FCN_VALIDAWIDGET"); 
+	relX.put("Periocidad","FCN_VALIDAWIDGET");  
+	relX.put("IdLinea","CLICK_VOID_OBJECT"); 
+	//relX.put("text:ingreso de operaciones","LBL_INGRESO_OPERACIONES"); 
+	
+	relX.put("Importe Préstamo","TXT_AVALUO"); 
+	relX.put("Importe Préstamo","LBL_MONTO_AVALUO"); 
+	relX.put("Importe Préstamo","LBL_MTO_AVALUO_TBL"); 
+	relX.put("Importe Préstamo","TXT_AVALUO_AUTOS"); 
+	relX.put("Importe Préstamo","TXT_AVALUO_COTIZADOR"); 
+	relX.put("Importe Préstamo","LBL_COLUMNA_AVALUO"); 
+	relX.put("ID Cliente","TXT_CLIENTE"); 
+	relX.put("ID Cliente","LBL_NOCLIENTE"); 
+	 
+	relX.put("Importe Préstamo","TXT_CALCULARGRAMOSNETOS_VOID"); 
+	relX.put("Periocidad","CBO_PAGOS"); 
+	relX.put("Descripcion1","CTNDR_LINEA_EMPENIO"); 
+	relX.put("Importe Préstamo","TXT_PRESTAMO"); 
+	relX.put("TipoTasa","TXT_TASA_TIPO"); 
+	relX.put("ValorTasa","TXT_TASA"); 
+	relX.put("PlazoMax","TXT_PLAZOS_D"); 
+	relX.put("Forma de pago","CBO_FORMA_PAGO"); 
+	//relX.put("text:Detalle de Bienes","LBL_DETALLE_BIENES"); 
+	relX.put("Descripcion","CBO_SUB_RUBRO_BIENES"); 
+	relX.put("Consecutivo","LBL_COLUMNA_NRO"); 
+	relX.put("Importe Préstamo","LBL_COLUMNA_AVALUO"); 
+	//relX.put("Alta Bien","LBL_ALTA_BIEN");  // falta 
+	
+	relX.put("idRubro","TXT_RUBRO_COTIZADOR"); 
+	relX.put("Importe Préstamo","TXT_AVALUO_COTIZADOR"); 
+	//relX.put("text:1","TXT_CANTIDAD_PIEZAS"); 
+	relX.put("text:0","TXT_CANT_ETIQUETAS"); 
+	relX.put("text:Rubro : Rubro Automóviles - SubRubro Automóviles","LBL_RUBRO"); 
+	relX.put("text:Bienvenido","LBL_INFORMACION_OPERACION"); 
+	relX.put("Descripcion1","TXT_LINEA"); 
+	relX.put("text:02/10/1980","TXT_FECHA_NACIMIENTO"); 
+	relX.put("Periocidad","CLICK_VOID_OBJECT");
+	
+	//relX.put("text:Alta Bien","LBL_ALTA_BIEN");
+	//relX.put("text:I.F.E.","CBO_TIPO_Y_NRO_IDENT");
+	//relX.put("text:237985","TXT_TIPO_Y_NRO_IDENT");
+	relX.put("text:12345643","TXT_IFE");
+	relX.put("text:1233333452","TXT_CURP");
+	relX.put("text:123131231231231231","TXT_RFC");
+	relX.put("text:calle 1","TXT_CALLE");
+	relX.put("text:22","TXT_NUMERO_EXT");
+	relX.put("text:23","TXT_NUMERO_INT");
+	relX.put("text:222","TXT_CODIGO_AREA");
+	relX.put("text:2222222","TXT_NUMERO");
+	relX.put("text:al","TXT_NOMBRES");
+	relX.put("text:1","TXT_DERECHO_POLIZA");
+	relX.put("text:1","TXT_PRIMA_SEGURO");
+	relX.put("text:Supervisión de Tarea","LBL_SUPERVISION_TAREA");
+	
+	relX.put("text:gerejev1","CBO_USUARIO"); //actualizar
+	relX.put("text:Mexico2017","TXT_CLAVE"); //actualizar
+	
+	//Pago Empeño
+	
+	relX.put("text:jherca071","USUARIO");
+	relX.put("text:Mexico12345","PASSWORD");
+	relX.put("text:http://lakin-qa2/LakinWEB/Login/Login.aspx","URL");
+	relX.put("text:cajeroven","USUARIO_CAJERO");
+	relX.put("text:Mexico12345","PASSWORD_CAJERO");
+	relX.put("text:El Pago se registro correctamente","LBL_MENSAJE_PAGO_EMP");
+	
+	
+}

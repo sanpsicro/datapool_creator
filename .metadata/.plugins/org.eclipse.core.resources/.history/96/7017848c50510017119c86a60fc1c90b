@@ -1,0 +1,54 @@
+package Excell_filter;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Iterator;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTAutoFilter;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTCustomFilter;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTCustomFilters;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTFilterColumn;
+
+import project.excel.Main;
+
+public class filter_descripcion1 {
+ 
+	
+	public static void main(String[] args){
+	FileInputStream file = new FileInputStream(new File(Main.OUT_FILE));
+	XSSFWorkbook workbook = new XSSFWorkbook (Main.OUT_FILE); 
+	XSSFSheet my_sheet = workbook.getSheetAt(0);
+
+	CTAutoFilter sheetFilter= my_sheet.getCTWorksheet().getAutoFilter();                             
+	/* Step -2: Add new Filter Column */
+	CTFilterColumn  myFilterColumn =  sheetFilter.insertNewFilterColumn(0);
+	/* Step-3: Set Filter Column ID */
+	myFilterColumn.setColId(1L);
+	/* Add a Custom Filter */
+	CTCustomFilters myCustomFilter=myFilterColumn.addNewCustomFilters();
+	/* This will be our begins with filter */
+	CTCustomFilter myFilter1= myCustomFilter.addNewCustomFilter();  
+	/* Set Value for Begins With Filter */          
+	myFilter1.setVal("AB*");  // Filter records that begin with AB
+	//Note that we are adding * after AB to implement begins with filter
+
+	XSSFRow r1;
+	/* Step-6: Loop through Rows and Apply Filter */
+	for(Row r : my_sheet) {
+	        for (Cell c : r) {
+	        if (c.getColumnIndex()==1 && !c.getStringCellValue().startsWith("AB")) {
+	                r1=(XSSFRow) c.getRow();
+	                if (r1.getRowNum()!=0) { /* Ignore top row */
+	                        /* Hide Row that does not meets begins with criteria */
+	                        r1.getCTRow().setHidden(true); }
+	        }                               
+	        }
+	}
+	}
+
+}

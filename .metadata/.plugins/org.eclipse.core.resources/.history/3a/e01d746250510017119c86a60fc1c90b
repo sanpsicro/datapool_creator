@@ -1,0 +1,27 @@
+package Excell_filter;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Iterator;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTAutoFilter;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTCustomFilter;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTCustomFilters;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTFilterColumn;
+
+import project.excel.Main;
+
+public class filter_descripcion1 {
+ 
+	
+	FileInputStream file = new FileInputStream(new File(Main.OUT_FILE));
+	XSSFWorkbook workbook = new XSSFWorkbook (Main.OUT_FILE); 
+	XSSFSheet my_sheet = workbook.getSheetAt(0);
+
+
+}

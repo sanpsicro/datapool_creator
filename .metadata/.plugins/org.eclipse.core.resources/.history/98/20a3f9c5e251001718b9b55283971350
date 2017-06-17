@@ -1,0 +1,403 @@
+package project.excel;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.sql.RowSetWriter;
+
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Header;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.util.CellReference;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFComment;
+import org.apache.poi.xssf.usermodel.XSSFRichTextString;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import Excell_filter.filter_descripcion1;
+import project.excel.Main;
+import java.lang.*;
+
+public class readingExcel{
+	
+	public static String value=null;	
+	
+	
+public static void readingMatrix(String fileName, String filename_B) {
+	    try (FileInputStream file = new FileInputStream(new File(fileName))) {
+	    	
+	    	XSSFWorkbook workbook = new XSSFWorkbook (file); 
+	    	XSSFSheet sheet = workbook.getSheetAt(0);
+	    	
+	    	FileInputStream file_B = new FileInputStream(new File(filename_B));
+	    	XSSFWorkbook workbook_B = new XSSFWorkbook(file_B);
+	    	XSSFSheet sheet_B = workbook_B.getSheetAt(0);
+	    	
+	    	
+	        Iterator<Row> rowIterator = sheet.rowIterator();
+	        
+	     
+	       
+	        for (Row row : sheet) {
+	            
+	        	boolean flag_hidden_row = false; 
+	        			
+	        			try {
+							flag_hidden_row = row.getZeroHeight() ;
+						} catch (Exception e3) {
+							// TODO Auto-generated catch block
+							e3.printStackTrace();
+						}
+	        	
+	        	if(row.getRowNum() == 0 || !flag_hidden_row   ) {
+	        		continue;
+	        	}
+	        	
+	        	Row row_w = sheet_B.createRow(row.getRowNum());
+	        	 try {
+						Main main = new Main();
+						List list;
+						 Set entrySet =  main.relX.entrySet();
+					        Iterator it = entrySet.iterator();
+					        System.out.println("  Object key  Object value");
+					        while (it.hasNext()) {
+					            Map.Entry mapEntry = (Map.Entry) it.next();
+					            list = (List) main.relX.get(mapEntry.getKey());
+					            for (int j = 0; j < list.size(); j++) {
+					                System.out.println("\t" + mapEntry.getKey() + "\t  " + list.get(j));
+									                if(mapEntry.getKey().toString().contains("text")){
+									                	String a = mapEntry.getKey().toString();
+									                	a = a.replace("text:", "").trim();
+									                	int index_i= 0;
+														try {
+															index_i = main.index_column.get(list.get(j));
+														} catch (Exception e) {
+															// TODO Auto-generated catch block
+															e.printStackTrace();
+														}
+									                	Cell cell_=row_w.createCell(index_i);
+									          
+									                	cell_.setCellValue(String.valueOf(a));
+									                	
+									                	file_B.close();
+													    FileOutputStream output_file =new FileOutputStream(new File(filename_B));  
+												  	    //write changes
+												  	   workbook_B.write(output_file);
+												  	   //close the stream
+												  	   output_file.close();
+									                }else if(mapEntry.getKey().toString().contains("value")){
+									                	String a = mapEntry.getKey().toString();
+									                	value = a.replace("value:", "").trim();
+									                	
+									                	
+									                }
+					            }
+					            
+					            
+					        }												
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+	         
+	        	
+					            for (Cell cell : row) {
+					            	
+					            	
+					            	
+					            	
+					            	try {
+					            		
+									
+									String b=cell.getStringCellValue();
+									String b_=cell.getStringCellValue();
+									System.out.println(b);
+									String header = cell.getSheet().getRow(0).getCell(cell.getColumnIndex()).getRichStringCellValue().toString();
+													try {
+														Main main = new Main();
+														 ArrayList<Object> iden = (ArrayList<Object>) main.relX.get(header);
+														 
+													    	for (int i = 0; i < iden.size(); i++) {
+														    		try {
+																		int column_idx = main.index_column.get(iden.get(i));
+																		Cell cell_ = row_w.createCell(column_idx);
+																		b = constructor_(iden.get(i).toString(),b_,column_idx,row_w.getRowNum());
+																		cell_.setCellValue(String.valueOf(b));
+																	} catch (Exception e) {
+																		continue;
+																	}
+														    		
+														    		
+															}
+													    	
+													    	 //file_B.close();
+															    FileOutputStream output_file =new FileOutputStream(new File(filename_B));  
+														  	    //write changes
+														  	   workbook_B.write(output_file);
+														  	   //close the stream
+														  	   output_file.close();
+													    	
+													   
+														
+													} catch (Exception e) {
+														continue;
+													}
+									} catch (Exception e) {
+										// TODO Auto-generated catch block
+									Double	b =cell.getNumericCellValue();
+									NumberFormat nf = new DecimalFormat("#.####");
+									 String  a= nf.format(b);
+									System.out.println(a);
+									String header = null;
+									try {
+										header = cell.getSheet().getRow(0).getCell(cell.getColumnIndex()).getRichStringCellValue().toString();
+									} catch (Exception e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+													try {
+														Main main = new Main();
+													    ArrayList<Object> iden = (ArrayList<Object>) main.relX.get(header);
+													 
+													    	for (int i = 0; i < iden.size(); i++) {
+													    		int column_idx = main.index_column.get(iden.get(i));
+															    Cell cell_ = row_w.createCell(column_idx);
+															    String x = constructor_(iden.get(i).toString(),String.valueOf(a),column_idx,row_w.getRowNum());
+															    cell_.setCellValue(x);
+															}
+													    file_B.close();
+													    FileOutputStream output_file =new FileOutputStream(new File(filename_B));  
+												  	    //write changes
+												  	   workbook_B.write(output_file);
+												  	   //close the stream
+												  	   output_file.close();
+														
+														
+													} catch (Exception e2) {
+														continue;
+													}
+									}
+					            	
+				
+					            	
+					            }
+	        
+	            }
+	        
+	        
+									            
+									             
+	  	   
+	    } catch (IOException ioException) {
+	        ioException.printStackTrace();
+	    }
+	    
+	    
+	}
+
+
+public static String constructor_(String columna_valores, String x, int column, int row ) throws IOException{
+	
+	
+	
+	
+	switch (columna_valores) {
+	case "CTNDR_LINEA_EMPENIO":
+		  x = "SISTEMA=PRENDARIO|PRODUCT_LINE="+x; 
+		break;
+	case "FCN_VALIDATEATTRIBUTE":
+			String b = _readValue(column, row);
+			if(b == null){ b="";} 
+			if(x.contains("/")  ){
+				 b = b.replaceAll("[^0-9]+", "").trim();  
+				x = "LINEA="+x+"|ATTRIBUTE=href|VALOR="+b;}
+			else if(!b.contains("LINEA")) {x="LINEA="+b+"|ATTRIBUTE=href|VALOR="+x;}
+			else{x=  b+x;}	
+				break;
+	case "FCN_VALIDAWIDGET":
+		String c = _readValue(column, row);
+		   b = x.replaceAll("[^0-9]+", "").trim();
+		   if(!b.isEmpty() && !b.equals("5")){
+			   x="ID_LINEA="+x+c; 
+			    }else{ 	
+			    x = c+x+"DEU|PLAZO="+x;
+			    }
+		break;
+	case "CLICK_VOID_OBJECT":
+		String d = _readValue(column, row);
+		 b = x.replaceAll("[^0-9]+", "").trim();
+		 if(!b.isEmpty() && !b.equals("5")){
+			 x = "//img[contains(@class,'opener" + x + d;
+		 }else{
+			x = d +x + "DEU')]"; 
+		 }
+		
+		break;
+	case "TXT_CALCULARGRAMOSNETOS_VOID":
+		
+		if(value.equals("Plata")){
+			x = "AVALUO=9.72|MONTO=" + computePercentage(row);	
+		}else if(value.equals("Alhajas")){
+		    x = "AVALUO=760|MONTO=" + computePercentage(row);}
+		break;
+	case "LBL_XPATH_LINEA_SEG":
+		x = "//span[contains(.,'Cotizador "+x+" Con Seguro')]";
+		break;
+	case "TXT_AVALUO_AUTOS":
+		x = computePercentage(row);
+		break;
+	case "LBL_MONTO_AVALUO":
+		x = computePercentage(row);
+		break;
+	case "LBL_MTO_AVALUO_TBL":
+		x = computePercentage(row);
+		break;
+	case "TXT_AVALUO":
+		x = computePercentage(row);
+		break;
+	case "TXT_AVALUO_COTIZADOR":
+		x = computePercentage(row);
+		break;
+	case "LBL_COLUMNA_AVALUO":
+		x = computePercentage(row);
+		break;
+
+	default:
+		break;
+	}
+	return x;
+	
+	
+}
+
+
+public static String _readValue(int column, int row) throws IOException{
+	
+	FileInputStream file_B = new FileInputStream(new File(Main.OUT_FILE));
+	XSSFWorkbook workbook_B = new XSSFWorkbook(file_B);
+	XSSFSheet sheet_B = workbook_B.getSheetAt(0);
+	
+	 DataFormatter formatter = new DataFormatter(); //creating formatter using the default locale
+	 Cell cell = sheet_B.getRow(row).getCell(column);
+	 String a = formatter.formatCellValue(cell);
+	 return a;
+	
+}
+
+
+/*
+ * 
+ * 
+ * Description: Calcula el valor del avaluo de tal manera que el importe y el avaluo queden dentro de su rango 
+ * 
+ */
+public static String computePercentage(int row) throws IOException{
+	
+	
+	String header = "";
+	String valueColumn = "";
+	
+	double percentage = 0;
+	double AvaluoMin = 0;
+	double AvaluoMax = 0;
+	double ImporteDesde = 0;
+	double ImporteHasta = 0; 
+	FileInputStream file_B = new FileInputStream(new File(filter_descripcion1.IN_FILE_CUSTOM));
+	XSSFWorkbook workbook_B = new XSSFWorkbook(file_B);
+	XSSFSheet sheet_B = workbook_B.getSheetAt(0);
+	
+	Iterator<Cell> cellIt = sheet_B.getRow(row).cellIterator();
+	NumberFormat formatter = new DecimalFormat("#0.0000");  
+	
+		 while (cellIt.hasNext()) {
+			Cell cell = (Cell) cellIt.next();
+			
+			 header = sheet_B.getRow(0).getCell(cell.getColumnIndex()).getRichStringCellValue()
+					.toString();
+			
+			if (header.equals("Descripcion1")) {
+				valueColumn =  sheet_B.getRow(row).getCell(cell.getColumnIndex()).getRichStringCellValue()
+						.toString();
+				percentage = Double.parseDouble(valueColumn.replaceAll("\\D+",""));
+				
+				percentage = percentage /10;
+				
+			}else if(header.equals("AvaluoMin")){
+				 AvaluoMin= round(sheet_B.getRow(row).getCell(cell.getColumnIndex()).getNumericCellValue(),4);
+				 
+				
+				
+			}else if(header.equals("AvaluoMax")){
+				AvaluoMax = round(sheet_B.getRow(row).getCell(cell.getColumnIndex()).getNumericCellValue(),4);
+				
+			}else if(header.equals("ImporteDesde")){
+				ImporteDesde = round(sheet_B.getRow(row).getCell(cell.getColumnIndex()).getNumericCellValue(),4);
+			
+		   }else if(header.equals("ImporteHasta")){
+			   ImporteHasta = round(sheet_B.getRow(row).getCell(cell.getColumnIndex()).getNumericCellValue(),4);
+			
+		   }  
+			
+			
+		 }
+		
+		 
+		 double cotM = round(Math.min((ImporteHasta*10)/percentage, AvaluoMax),4);
+		 
+		 double cotm = round(Math.max((ImporteDesde*10)/percentage,AvaluoMin),4);
+		 
+		 double returnable;
+		 
+		 if(0 < cotm  &&  cotm < 100000){
+			 
+			  returnable = cotm;
+		 
+		 }else{
+			 
+			  returnable = round((cotM + cotm)/2,4);
+			 
+		 }
+		 
+	     
+		 System.out.println(returnable);
+	return String.valueOf(returnable).replace(",", "").replace(".", ",");
+	
+	 
+	
+	
+	
+	
+}
+
+public static double round(double value, int places) {
+    if (places < 0) throw new IllegalArgumentException();
+
+    long factor = (long) Math.pow(10, places);
+    value = value * factor;
+    long tmp = Math.round(value);
+    return (double) tmp / factor;
+    
+  
+}
+
+    
+	
+}
+
+
